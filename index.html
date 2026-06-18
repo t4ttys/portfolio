@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tatiana Scott-Jones — Graphic Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230a0a0a'/><text y='72' x='50' text-anchor='middle' font-size='48' font-weight='bold' font-family='monospace' fill='%23d4f542'>TSJ</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2eb;
+    --acid: #d4f542;
+    --acid-dark: #a8c22e;
+    --mid: #1a1a1a;
+    --muted: #444;
+    --border: #222;
+    --mono: 'Space Mono', monospace;
+    --sans: 'Space Grotesk', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--sans);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 32px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--mono); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.1em; color: var(--white); text-decoration: none;
+    cursor: default;
+  }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    font-size: 11px; color: #666; text-decoration: none;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    font-family: var(--mono); cursor: pointer; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--acid); }
+
+  /* ── PAGES ── */
+  .page { display: none; min-height: 100vh; padding-top: 60px; }
+  .page.active { display: block; }
+
+  /* ── HOME ── */
+  .home-hero {
+    padding: 60px 32px 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    min-height: calc(100vh - 60px);
+  }
+  .hero-left { padding: 48px 48px 48px 0; display: flex; flex-direction: column; justify-content: center; }
+  .award-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--acid); color: var(--black);
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 7px 16px; margin-bottom: 36px;
+    font-family: var(--mono);
+  }
+  .award-dot { width: 5px; height: 5px; background: var(--black); border-radius: 50%; }
+  .hero-headline {
+    font-size: clamp(52px, 7vw, 88px); font-weight: 700;
+    line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 28px;
+  }
+  .hero-headline em { font-style: normal; color: var(--acid); }
+  .hero-sub {
+    font-family: var(--mono); font-size: 12px; color: #555;
+    line-height: 1.7; margin-bottom: 40px; max-width: 340px;
+  }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--acid); color: var(--black);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 13px 28px;
+    border: none; cursor: pointer; font-family: var(--mono);
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--acid-dark); }
+  .btn-secondary {
+    background: transparent; color: var(--white);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 13px 28px;
+    border: 1px solid #333; cursor: pointer; font-family: var(--mono);
+    transition: border-color 0.2s;
+  }
+  .btn-secondary:hover { border-color: #666; }
+
+  .hero-right {
+    border-left: 1px solid var(--border);
+    display: grid; grid-template-rows: 1fr 1fr; gap: 0;
+  }
+  .hero-img-top, .hero-img-bottom {
+    overflow: hidden; position: relative;
+  }
+  .hero-img-top { border-bottom: 1px solid var(--border); }
+  .hero-img-top img, .hero-img-bottom img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(20%); transition: filter 0.4s;
+  }
+  .hero-img-top:hover img, .hero-img-bottom:hover img { filter: grayscale(0%); }
+  .hero-img-label {
+    position: absolute; bottom: 12px; left: 12px;
+    font-family: var(--mono); font-size: 9px; color: rgba(245,242,235,0.5);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  /* ── TICKER ── */
+  .ticker {
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    padding: 11px 0; overflow: hidden; white-space: nowrap;
+    background: var(--black);
+  }
+  .ticker-inner { display: inline-flex; animation: ticker 22s linear infinite; }
+  .ticker-item {
+    font-family: var(--mono); font-size: 10px; color: #2a2a2a;
+    letter-spacing: 0.12em; text-transform: uppercase; padding: 0 36px;
+  }
+  .ticker-item span { color: var(--acid); }
+  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* ── WORK GRID ── */
+  .work-section { padding: 64px 32px; }
+  .section-eyebrow {
+    font-family: var(--mono); font-size: 10px; color: #333;
+    letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 28px;
+  }
+  .projects-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  }
+  .project-card {
+    position: relative; overflow: hidden; cursor: pointer;
+    aspect-ratio: 4/3; background: #111;
+    transition: transform 0.3s;
+  }
+  .project-card.wide { grid-column: span 2; aspect-ratio: 16/6; }
+  .project-card:hover { z-index: 2; }
+  .project-bg {
+    width: 100%; height: 100%; display: flex; align-items: center;
+    justify-content: center; padding: 28px;
+    font-weight: 700; line-height: 0.82; letter-spacing: -0.03em;
+    text-transform: uppercase; transition: transform 0.5s;
+    font-size: clamp(28px, 4vw, 52px);
+  }
+  .project-card:hover .project-bg { transform: scale(1.05); }
+  .p-fada { background: #1a0000; color: #ff3322; }
+  .p-playback { background: #000d1a; color: #3d9fff; }
+  .p-noise { background: #1a1100; color: #ffcc00; }
+  .p-poly { background: #001a0a; color: #00d46a; }
+  .p-climate { background: #1a0800; color: #ff6b2e; }
+  .p-heart { background: #1a001a; color: #ff3d9a; }
+  .p-retro { background: #0a001a; color: #cc88ff; }
+
+  .project-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    padding: 20px 16px 14px;
+    transform: translateY(100%); transition: transform 0.3s;
+  }
+  .project-card:hover .project-overlay { transform: translateY(0); }
+  .project-num {
+    position: absolute; top: 12px; left: 14px;
+    font-family: var(--mono); font-size: 9px; color: rgba(245,242,235,0.15);
+  }
+  .project-title { font-size: 13px; font-weight: 700; color: var(--white); }
+  .project-tag { font-size: 10px; color: #666; font-family: var(--mono); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.07em; }
+
+  .stats-row {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 1px; background: var(--border); margin-top: 2px;
+  }
+  .stat {
+    background: var(--black); padding: 22px 28px;
+  }
+  .stat-num { font-size: 30px; font-weight: 700; color: var(--acid); font-family: var(--mono); }
+  .stat-label { font-size: 10px; color: #333; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; font-family: var(--mono); }
+
+  /* ── PROJECT PAGE ── */
+  .project-page { padding: 80px 32px 64px; max-width: 1100px; margin: 0 auto; }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 10px; color: #444;
+    letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
+    margin-bottom: 48px; transition: color 0.2s; background: none; border: none;
+  }
+  .back-btn:hover { color: var(--acid); }
+  .project-header { margin-bottom: 56px; }
+  .project-category {
+    font-family: var(--mono); font-size: 10px; color: var(--acid);
+    letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px;
+  }
+  .project-h1 {
+    font-size: clamp(40px, 6vw, 72px); font-weight: 700;
+    line-height: 0.9; letter-spacing: -0.03em; margin-bottom: 28px;
+  }
+  .project-intro {
+    font-size: 17px; line-height: 1.7; color: #aaa; max-width: 680px;
+  }
+  .project-meta {
+    display: flex; gap: 40px; margin-top: 36px; padding-top: 36px;
+    border-top: 1px solid var(--border); flex-wrap: wrap;
+  }
+  .meta-item {}
+  .meta-label { font-family: var(--mono); font-size: 9px; color: #333; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+  .meta-value { font-size: 13px; color: var(--white); font-weight: 500; }
+
+  .project-images { display: grid; gap: 3px; margin-bottom: 56px; }
+  .project-images.two-col { grid-template-columns: 1fr 1fr; }
+  .project-images.three-col { grid-template-columns: 1fr 1fr 1fr; }
+  .project-img {
+    overflow: hidden; background: #111;
+  }
+  .project-img img, .project-img video {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.5s;
+  }
+  .project-img:hover img { transform: scale(1.03); }
+  .project-img.tall { aspect-ratio: 3/4; }
+  .project-img.wide { aspect-ratio: 16/9; }
+  .project-img.square { aspect-ratio: 1/1; }
+  .project-img.portrait { aspect-ratio: 2/3; }
+  .project-img.auto { aspect-ratio: auto; }
+  .project-img.auto img { height: auto; }
+
+  .project-body { max-width: 680px; }
+  .project-body h2 {
+    font-size: 22px; font-weight: 700; margin-bottom: 16px; margin-top: 48px;
+    letter-spacing: -0.02em;
+  }
+  .project-body p { font-size: 15px; line-height: 1.8; color: #888; margin-bottom: 20px; }
+  .project-body p strong { color: var(--white); font-weight: 700; }
+
+  .highlight-quote {
+    border-left: 3px solid var(--acid); padding: 20px 28px;
+    margin: 40px 0; background: #0f0f0f;
+  }
+  .highlight-quote p { color: var(--white); font-size: 16px; font-style: italic; margin: 0; }
+
+  /* ── ABOUT ── */
+  .about-page { padding: 80px 32px 64px; max-width: 900px; margin: 0 auto; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .about-text h1 { font-size: clamp(36px, 5vw, 60px); font-weight: 700; letter-spacing: -0.03em; line-height: 0.9; margin-bottom: 32px; }
+  .about-text h1 em { font-style: normal; color: var(--acid); }
+  .about-text p { font-size: 15px; line-height: 1.8; color: #888; margin-bottom: 20px; }
+  .about-text p strong { color: var(--white); }
+  .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+  .tag {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 7px 14px; border: 1px solid #222; color: #555;
+  }
+  .about-right {}
+  .about-award {
+    background: var(--acid); color: var(--black); padding: 28px 24px; margin-bottom: 24px;
+  }
+  .award-title { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; font-family: var(--mono); margin-bottom: 8px; }
+  .award-desc { font-size: 14px; font-weight: 700; }
+  .about-contact { border: 1px solid var(--border); padding: 28px 24px; }
+  .contact-title { font-size: 11px; color: #333; letter-spacing: 0.1em; text-transform: uppercase; font-family: var(--mono); margin-bottom: 16px; }
+  .contact-link {
+    display: block; font-size: 14px; color: var(--white); text-decoration: none;
+    padding: 10px 0; border-bottom: 1px solid var(--border); transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--acid); }
+  .contact-link:last-child { border-bottom: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .home-hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 40px 0; }
+    .hero-right { display: none; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.wide { grid-column: span 1; aspect-ratio: 4/3; }
+    .stats-row { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; }
+    .work-section, .project-page, .about-page { padding-left: 20px; padding-right: 20px; }
+    .project-images.two-col, .project-images.three-col { grid-template-columns: 1fr; }
+  }
+
+  /* ── MOTION GRID ── */
+  .motion-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3px;
+    margin-bottom: 56px;
+  }
+  .motion-cell {
+    aspect-ratio: 16/9; overflow: hidden; background: #111;
+  }
+  .motion-cell video {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  @media (max-width: 768px) {
+    .motion-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── LIGHTBOX ── */
+  #lightbox {
+    position: fixed; inset: 0; z-index: 900;
+    background: rgba(0, 0, 0, 0.88);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  #lightbox.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  #lightbox-img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 2px;
+    box-shadow: 0 12px 60px rgba(0, 0, 0, 0.7);
+    transform: scale(0.96);
+    transition: transform 0.25s ease;
+  }
+  #lightbox.open #lightbox-img {
+    transform: scale(1);
+  }
+  .project-img img { cursor: zoom-in; }
+</style>
+</head>
+<body>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<nav>
+  <a class="nav-logo" onclick="showPage('home')">TSJ</a>
+  <div class="nav-links">
+    <a onclick="showPage('home')">Work</a>
+    <a onclick="showPage('motion')">Motion</a>
+    <a onclick="showPage('about')">About</a>
+    <a href="mailto:tatianascottjones@yahoo.com">Contact</a>
+  </div>
+</nav>
+
+<!-- ══════════════ HOME ══════════════ -->
+<div id="page-home" class="page active">
+  <div class="home-hero">
+    <div class="hero-left">
+      <div class="award-pill">
+        <div class="award-dot"></div>
+        External Examiner Prize 2026
+        <div class="award-dot"></div>
+      </div>
+      <h1 class="hero-headline">
+        Graphic<br>
+        Designer<br>
+        with a<br>
+        <em>point<br>of view.</em>
+      </h1>
+      <p class="hero-sub">
+        // Speculative. Critical. Culture-aware.<br>
+        Huddersfield GD Graduate, 2026.<br>
+        Available for hire.
+      </p>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="document.querySelector('.work-section').scrollIntoView({behavior:'smooth'})">View Work ↓</button>
+        <button class="btn-secondary" onclick="showPage('about')">About Me</button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img-top">
+        <img src="fada/IMG_4979.jpg" alt="FADA installation at grad show" onerror="this.parentElement.style.background='#1a0000'">
+        <span class="hero-img-label">FADA — FMP 2026</span>
+      </div>
+      <div class="hero-img-bottom">
+        <img src="just-sheer-noise/IMG_3200.jpg" alt="Just Sheer Noise" onerror="this.parentElement.style.background='#1a1100'">
+        <span class="hero-img-label">Just Sheer Noise — 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ticker">
+    <div class="ticker-inner">
+      <span class="ticker-item">FADA <span>✦</span></span>
+      <span class="ticker-item">Just Sheer Noise <span>✦</span></span>
+      <span class="ticker-item">PolyFlakes <span>✦</span></span>
+      <span class="ticker-item">Every Brand is a Climate Brand <span>✦</span></span>
+      <span class="ticker-item">Playback Sessions <span>✦</span></span>
+      <span class="ticker-item">Heart Check Chain <span>✦</span></span>
+      <span class="ticker-item">External Examiner Prize 2026 <span>✦</span></span>
+      <span class="ticker-item">FADA <span>✦</span></span>
+      <span class="ticker-item">Just Sheer Noise <span>✦</span></span>
+      <span class="ticker-item">PolyFlakes <span>✦</span></span>
+      <span class="ticker-item">Every Brand is a Climate Brand <span>✦</span></span>
+      <span class="ticker-item">Playback Sessions <span>✦</span></span>
+      <span class="ticker-item">Heart Check Chain <span>✦</span></span>
+      <span class="ticker-item">External Examiner Prize 2026 <span>✦</span></span>
+    </div>
+  </div>
+
+  <div class="work-section">
+    <p class="section-eyebrow">Selected Work — 2024–26</p>
+    <div class="projects-grid">
+
+      <div class="project-card wide" onclick="showPage('fada')">
+        <div class="project-bg p-fada" style="font-size:clamp(36px,6vw,72px);">FADA</div>
+        <span class="project-num">01</span>
+        <div class="project-overlay">
+          <div class="project-title">FADA — Facial Recognition Defeat System</div>
+          <div class="project-tag">FMP · Speculative Design · Installation · Anaglyph Typography</div>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="showPage('noise')">
+        <div class="project-bg p-noise">Just<br>Sheer<br>Noise</div>
+        <span class="project-num">02</span>
+        <div class="project-overlay">
+          <div class="project-title">Just Sheer Noise</div>
+          <div class="project-tag">Dissertation Extension · Speculative Print · Greenwashing Critique</div>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="showPage('poly')">
+        <div class="project-bg p-poly">Poly<br>Flakes</div>
+        <span class="project-num">03</span>
+        <div class="project-overlay">
+          <div class="project-title">PolyFlakes</div>
+          <div class="project-tag">Speculative Branding · Packaging · Critical Design</div>
+        </div>
+      </div>
+
+      <div class="project-card wide" onclick="showPage('playback')">
+        <div class="project-bg p-playback" style="font-size:clamp(28px,4vw,56px);">Playback<br>Sessions</div>
+        <span class="project-num">04</span>
+        <div class="project-overlay">
+          <div class="project-title">Playback Sessions — By Your Side Since '79</div>
+          <div class="project-tag">Social Design · Zine · OOH Campaign · Alzheimer's Society</div>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="showPage('climate')">
+        <div class="project-bg p-climate" style="font-size:clamp(18px,2.5vw,30px);">Every<br>Brand is<br>a Climate<br>Brand</div>
+        <span class="project-num">05</span>
+        <div class="project-overlay">
+          <div class="project-title">Every Brand is a Climate Brand</div>
+          <div class="project-tag">Campaign · Critical Design · Greenwashing</div>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="showPage('heart')">
+        <div class="project-bg p-heart" style="font-size:clamp(22px,3vw,40px);">Heart<br>Check<br>Chain</div>
+        <span class="project-num">06</span>
+        <div class="project-overlay">
+          <div class="project-title">Heart Check Chain</div>
+          <div class="project-tag">Health Campaign · App Design · Social · OOH</div>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num">6</div><div class="stat-label">Projects</div></div>
+      <div class="stat"><div class="stat-num">01</div><div class="stat-label">External Examiner Prize</div></div>
+      <div class="stat"><div class="stat-num">2026</div><div class="stat-label">Graduate · Huddersfield</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ FADA ══════════════ -->
+<div id="page-fada" class="page">
+  <div class="project-page">
+    <button class="back-btn" onclick="showPage('home')">← Back to Work</button>
+    <div class="project-header">
+      <p class="project-category">Final Major Project · 2026</p>
+      <h1 class="project-h1">FADA</h1>
+      <p class="project-intro">A speculative communication system designed to defeat facial recognition technology. Inspired by CAPTCHA logic, FADA creates a visual language with a hidden layer — only legible to humans holding a red-filter lens.</p>
+      <div class="project-meta">
+        <div class="meta-item"><div class="meta-label">Type</div><div class="meta-value">Speculative Design · Installation</div></div>
+        <div class="meta-item"><div class="meta-label">Year</div><div class="meta-value">2026</div></div>
+        <div class="meta-item"><div class="meta-label">Context</div><div class="meta-value">Final Major Project · Grad Show</div></div>
+        <div class="meta-item"><div class="meta-label">Award</div><div class="meta-value">External Examiner Prize 2026</div></div>
+      </div>
+    </div>
+
+    <div class="project-images two-col" style="margin-bottom:3px;">
+      <div class="project-img wide">
+  <video autoplay muted loop playsinline>
+    <source src="IMG_4995.mp4" type="video/mp4">
+  </video>
+</div>
+      <div class="project-img tall">
+        <img src="fada/IMG_4831.jpg" alt="FADA red cover with anaglyph figure">
+      </div>
+    </div>
+    <div class="project-images three-col">
+      <div class="project-img square">
+        <img src="fada/IMG_3205.jpg" alt="FADA red glasses handmade artefacts">
+      </div>
+      <div class="project-img square">
+        <img src="fada/IMG_3204.jpg" alt="FADA anaglyph prints spread">
+      </div>
+      <div class="project-img square">
+        <img src="fada/IMG_3201.jpg" alt="FADA spray paint installation detail">
+      </div>
+    </div>
+    <div class="project-images two-col" style="margin-top:3px;">
+      <div class="project-img" style="grid-column:span 2; aspect-ratio:3/4;">
+        <img src="fada/fmp_artwork_1.jpg" alt="FADA artwork 1">
+      </div>
+      <div class="project-img" style="aspect-ratio:3/4;">
+        <img src="fada/fmp_artwork_2.jpg" alt="FADA artwork 2">
+      </div>
+      <div class="project-img" style="aspect-ratio:3/4;">
+        <img src="fada/fmp_artwork_3.jpg" alt="FADA artwork 3">
+      </div>
+      <div class="project-img" style="aspect-ratio:3/4;">
+        <img src="fada/fmp_artwork_4.jpg" alt="FADA artwork 4">
+      </div>
+      <div class="project-img" style="aspect-ratio:3/4;">
+        <img src="fada/fmp_artwork_5.jpg" alt="FADA artwork 5">
+      </div>
+    </div>
+
+    <div class="project-body">
+      <p><strong>FADA</strong> — derived from a facial recognition screening failure code — is a speculative visual language for a future where surveillance technology is ubiquitous. The project asks: how do people communicate when every letter can be read by a machine?</p>
+
+      <div class="highlight-quote">
+        <p>"The text is visibly hidden from view. I made an extra layer only accessible by humans — the red/blue disguise which needed a red film to decipher. So I made the glasses."</p>
+      </div>
+
+      <h2>The Concept</h2>
+      <p>Taking inspiration from CAPTCHA tests — systems designed to distinguish human from machine — FADA develops an anaglyph typography system where text is simultaneously present and hidden. The red layer is readable to machines; the blue layer, visible only through a red-filter lens, carries the human message.</p>
+      <p><strong>The physical artefact — handmade red-filter glasses</strong> — becomes the key. Without them, the message is noise. With them, it reveals itself. The glasses were distributed at the grad show, making every viewer an active participant in the act of decoding.</p>
+
+      <h2>The Installation</h2>
+      <p>At the 2026 Huddersfield Graduate Showcase, FADA was presented as a floor-to-ceiling large-format printed installation — over two metres tall — covered in the FADA visual language: red spray-painted graffiti layered over the structured anaglyph type system. Five sets of handmade glasses were displayed alongside the bound publication.</p>
+      <p><strong>This project was awarded the External Examiner Prize 2026.</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ JUST SHEER NOISE ══════════════ -->
+<div id="page-noise" class="page">
+  <div class="project-page">
+    <button class="back-btn" onclick="showPage('home')">← Back to Work</button>
+    <div class="project-header">
+      <p class="project-category">Dissertation Extension · 2025</p>
+      <h1 class="project-h1">Just Sheer<br>Noise</h1>
+      <p class="project-intro">A visual and theoretical extension of a dissertation on greenwashing, ecological hyperobjects, and the ethical responsibility of the designer within capitalist structures. Subverting the language of high-pressure retail advertising to expose the "just sheer noise" of corporate sustainability claims.</p>
+      <div class="project-meta">
+        <div class="meta-item"><div class="meta-label">Type</div><div class="meta-value">Speculative Print · Newspaper</div></div>
+        <div class="meta-item"><div class="meta-label">Year</div><div class="meta-value">2025</div></div>
+        <div class="meta-item"><div class="meta-label">Context</div><div class="meta-value">Dissertation Extension · Grad Show</div></div>
+      </div>
+    </div>
+
+    <div class="project-images two-col" style="margin-bottom:3px;">
+      <div class="project-img tall">
+        <img src="just-sheer-noise/Screenshot_2026-06-10_at_00_23_30.png" alt="Just Sheer Noise — cover page with sale graphics and screaming child">
+      </div>
+      <div class="project-img tall">
+        <img src="just-sheer-noise/Screenshot_2026-06-10_at_00_24_29.png" alt="DELAY-CO receipt — dissertation bibliography as shop receipt">
+      </div>
+    </div>
+    <div class="project-images three-col">
+      <div class="project-img square">
+        <img src="just-sheer-noise/Screenshot_2026-06-10_at_00_23_07.png" alt="Just Sheer Noise inner spread — Design is Not Innocent">
+      </div>
+      <div class="project-img square">
+        <img src="just-sheer-noise/Screenshot_2026-06-10_at_00_23_19.png" alt="Just Sheer Noise — air freshener greenwashing spread">
+      </div>
+      <div class="project-img square">
+        <img src="just-sheer-noise/Screenshot_2026-06-10_at_00_24_19.png" alt="Just Sheer Noise — jackpot scratch card spread">
+      </div>
+    </div>
+
+    <div class="project-body">
+      <p><strong>Just Sheer Noise</strong> began as an extension of a dissertation investigating how contemporary design strategies engage with ecological hyperobjects. Taking Ken Garland's description of consumer advertising as "just sheer noise" as its title and thesis, the project subverts the visual language of closing-down sales and discount retail to interrogate the contradictions of climate delay and techno-optimism.</p>
+
+      <div class="highlight-quote">
+        <p>"Design serves whoever pays for it." — The DELAY-CO receipt itemises the bibliography like a checkout slip: SUBTOTAL: STATUS QUO. TAX (GREENWASHING): 20%. VOID AFTER ECOLOGICAL COLLAPSE. KEEP RECEIPT FOR FUTURE AUTONOMY.</p>
+      </div>
+
+      <h2>The Newspaper</h2>
+      <p>Presented as a tabloid newspaper — distributed free at the 2026 graduate showcase — the publication layers academic dissertation text beneath an assault of retail graphics: sale stickers, price tags, 99p badges, closing-down bursts. The academic content becomes almost illegible beneath the noise, which is exactly the point.</p>
+      <p>The "Greenwashed Pine" air freshener spread, the PolyFlakes cereal, and the DELAY-CO receipt all appear as speculative products embedded within the newspaper, blurring editorial and advertising in the same way that corporate sustainability discourse does.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ POLYFLAKES ══════════════ -->
+<div id="page-poly" class="page">
+  <div class="project-page">
+    <button class="back-btn" onclick="showPage('home')">← Back to Work</button>
+    <div class="project-header">
+      <p class="project-category">Speculative Branding · 2025</p>
+      <h1 class="project-h1">PolyFlakes</h1>
+      <p class="project-intro">A speculative breakfast cereal designed for a dystopian future where natural systems have collapsed. Future-Proof Nutrition. Shelf Life: Indefinite. Designed to Never Decompose.</p>
+      <div class="project-meta">
+        <div class="meta-item"><div class="meta-label">Type</div><div class="meta-value">Speculative Branding · Packaging</div></div>
+        <div class="meta-item"><div class="meta-label">Year</div><div class="meta-value">2025</div></div>
+        <div class="meta-item"><div class="meta-label">Context</div><div class="meta-value">Just Sheer Noise Newspaper</div></div>
+      </div>
+    </div>
+
+    <div class="project-images two-col">
+      <div class="project-img tall">
+        <img src="just-sheer-noise/Screenshot_2026-06-10_at_00_23_40.png" alt="PolyFlakes box packaging — Shelf Life Indefinite">
+      </div>
+      <div class="project-img tall">
+        <img src="just-sheer-noise/Screenshot_2026-06-10_at_00_23_50.png" alt="PolyFlakes advertisement — newspaper spread">
+      </div>
+    </div>
+    <div class="project-img wide" style="aspect-ratio:16/9; margin-bottom: 3px;">
+  <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;">
+    <source src="just-sheer-noise/IMG_5022.mp4" type="video/mp4">
+  </video>
+</div>
+
+    <div class="project-body">
+      <p><strong>PolyFlakes</strong> is a speculative product embedded within the Just Sheer Noise newspaper. It functions as a tangible critique of ecological hyperobjects and the myth of techno-optimism — presented as a breakfast cereal designed for a dystopian future where natural systems have collapsed, leaving only synthetic alternatives.</p>
+      <p>The branding mimics 1990s children's cereal packaging — bright stars, rainbow typography, smiling children — while the copy reveals its dark logic: <strong>Enhanced with Smythetic Flavouring. Designed to Never Decompose. Future-Proof Nutrition.</strong></p>
+      <div class="highlight-quote">
+        <p>The cheerful aesthetics of consumer capitalism applied to ecological catastrophe. PolyFlakes doesn't critique from outside the system — it becomes the system, selling the collapse.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PLAYBACK SESSIONS ══════════════ -->
+<div id="page-playback" class="page">
+  <div class="project-page">
+    <button class="back-btn" onclick="showPage('home')">← Back to Work</button>
+    <div class="project-header">
+      <p class="project-category">Social Design · Zine · OOH Campaign · 2025</p>
+      <h1 class="project-h1">Playback<br>Sessions</h1>
+      <p class="project-intro">By Your Side Since '79. A Sony × Spotify campaign and Alzheimer's Society zine celebrating the Walkman as a vessel for human memory — and music as a means of reconnection across generations.</p>
+      <div class="project-meta">
+        <div class="meta-item"><div class="meta-label">Type</div><div class="meta-value">Social Design · Zine · OOH · Campaign</div></div>
+        <div class="meta-item"><div class="meta-label">Year</div><div class="meta-value">2025</div></div>
+        <div class="meta-item"><div class="meta-label">Partners</div><div class="meta-value">Alzheimer's Society · Age UK · Re-engage</div></div>
+      </div>
+    </div>
+
+    <div class="project-images" style="margin-bottom:3px;">
+      <div class="project-img tall">
+        <img src="playback-sessions/bys.jpg" alt="Playback Sessions Never Left OOH billboard">
+      </div>
+    </div>
+    <div class="project-images two-col">
+      <div class="project-img portrait">
+        <img src="playback-sessions/poster.png" alt="By Your Side Since 79 — bubble logo">
+      </div>
+      <div class="project-img portrait">
+        <img src="playback-sessions/slips.png" alt="Playback Sessions — Mums Got the Moves zine spread">
+      </div>
+    </div>
+
+    <div class="project-body">
+      <p><strong>Playback Sessions</strong> began as a response to a brief to make visible the value of a particular technology — the Sony Walkman. Through primary research including an interview with my mother about her Walkman Sport, the project pivoted from product campaign to social design.</p>
+
+      <div class="highlight-quote">
+        <p>"It created this little bubble where I was the main character. Those songs are tied to those specific moments on the road. Even though my hearing isn't what it used to be, those memories are still happy and vivid."</p>
+      </div>
+
+      <h2>The Campaign — By Your Side Since '79</h2>
+      <p>The campaign reframes the Walkman not as obsolete technology but as a lifelong companion. Working with research into music's impact on dementia — Alzheimer's Society, Age UK, Re-engage — the project develops a Sony × Spotify collaboration built around the concept of <strong>Independance</strong>: a portmanteau of Independence and Dance.</p>
+      <p>The OOH billboard series features real people dancing, headphones on, with the tagline <strong>NEVER LEFT</strong> — challenging the perception that people with Alzheimer's are "gone." The bubble-dot logo for "79" is directly informed by brain scan imagery showing how self-selected music reconnects neural pathways.</p>
+
+      <h2>The Zine</h2>
+      <p>An authentic health zine — the antithesis of clinical NHS pamphlets — distributed at the grad showcase. The "Confessions of a Walkman" spread uses gradient typography to mirror the fading nature of memory, with handwritten copy drawing on the tactile quirks of the device: the mechanical click of Play, the tape wobble when you run, battery anxiety as the music slows.</p>
+    </div>
+
+    <div class="project-images" style="margin-top:56px;">
+      <div class="project-img auto">
+        <img src="playback-sessions/Screenshot 2026-05-04 at 12.01.55.png" alt="Retro-Tec Listen Like You Used To campaign poster">
+      </div>
+      <div class="project-img auto">
+        <img src="playback-sessions/Screenshot 2026-05-04 at 17.33.20.png" alt="Retro-Tec Independance wordplay concept">
+      </div>
+    </div>
+
+    <div class="project-body">
+      <h2>Campaign Development — Retro-Tec</h2>
+      <p><strong>Retro-Tec</strong> is a campaign designed around the concept of <strong>Independance</strong> — a deliberate portmanteau of Independence and Dance — reimagining how Sony × Spotify could empower older listeners navigating digital systems, using the familiar tactility of the Walkman as a gateway.</p>
+      <p>Research revealed that older audiences often feel alienated by minimal "flat" design, overwhelmed by streaming interfaces, and nostalgic for physical buttons and feedback. The campaign repositions the Walkman not as retro nostalgia but as a model of accessible, dignified design.</p>
+      <p>Campaign touchpoints include print posters, an event programme for "Independance Sessions" (silent discos / movement workshops in partnership with Age UK), and an editorial zine with mode-based colour coding: purples and oranges for Fast Forward / high energy; blues for Rewind / reflection.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ EVERY BRAND ══════════════ -->
+<div id="page-climate" class="page">
+  <div class="project-page">
+    <button class="back-btn" onclick="showPage('home')">← Back to Work</button>
+    <div class="project-header">
+      <p class="project-category">Critical Design · Campaign · 2025</p>
+      <h1 class="project-h1">Every Brand<br>is a Climate<br>Brand</h1>
+      <p class="project-intro">A visceral critique of performative environmentalism and the corporate co-opting of ecological crises. Visually translating how brands use the language of climate action as a commodity.</p>
+      <div class="project-meta">
+        <div class="meta-item"><div class="meta-label">Type</div><div class="meta-value">Campaign · Critical Design</div></div>
+        <div class="meta-item"><div class="meta-label">Year</div><div class="meta-value">2025</div></div>
+        <div class="meta-item"><div class="meta-label">Context</div><div class="meta-value">Just Sheer Noise Newspaper</div></div>
+      </div>
+    </div>
+
+    <div class="project-images two-col">
+      <div class="project-img tall">
+        <img src="every-brand/1.psd" alt="Every Brand is a Climate Brand — poster">
+      </div>
+      <div class="project-img tall">
+        <img src="every-brand/2.HEIC" alt="EcoToken — introducing instant environmental impact">
+      </div>
+      <div class="project-img tall">
+        <img src="every-brand/3.HEIC" alt="EcoToken — introducing instant environmental impact">
+      </div>
+      <div class="project-img tall">
+        <img src="every-brand/4.HEIC" alt="EcoToken — introducing instant environmental impact">
+      </div>
+      <div class="project-img tall">
+        <img src="every-brand/5.HEIC" alt="EcoToken — introducing instant environmental impact">
+      </div>
+    </div>
+
+    <div class="project-body">
+      <p><strong>Every Brand is a Climate Brand</strong> is a critical design campaign embedded within the Just Sheer Noise newspaper. It targets the ubiquity of corporate greenwashing — the phenomenon Kazior describes as "every brand is a climate brand, and that's terrible for the environment."</p>
+      <p>The visual language mimics high-pressure retail promotional design — sale splashes, burst graphics, price tags — but applies them to ecological claims. <strong>EcoToken™: instant environmental impact. Plant a tree with every purchase. *tree allocation subject to availability. digital offset applied where necessary.</strong></p>
+      <div class="highlight-quote">
+        <p>The work doesn't argue from outside the system. It becomes the system — selling sustainability the same way supermarkets sell cereal.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ HEART CHECK CHAIN ══════════════ -->
+<div id="page-heart" class="page">
+  <div class="project-page">
+    <button class="back-btn" onclick="showPage('home')">← Back to Work</button>
+    <div class="project-header">
+      <p class="project-category">Health Campaign · App Design · 2025</p>
+      <h1 class="project-h1">Heart<br>Check Chain</h1>
+      <p class="project-intro">Make LP(a) screening a family affair. Turning an inherited risk into a viral mission — using the logic of chain letters and social sharing to drive cardiovascular health screening across generations.</p>
+      <div class="project-meta">
+        <div class="meta-item"><div class="meta-label">Type</div><div class="meta-value">Health Campaign · App Design · OOH · Social</div></div>
+        <div class="meta-item"><div class="meta-label">Year</div><div class="meta-value">2025</div></div>
+        <div class="meta-item"><div class="meta-label">Context</div><div class="meta-value">Brief-based Campaign</div></div>
+      </div>
+    </div>
+
+    <div class="project-images two-col">
+      <div class="project-img" style="aspect-ratio: 4/3;">
+        <img src="heart-check/Screenshot 2026-03-10 at 12.41.05.png" alt="Heart Check Chain — campaign key visual">
+      </div>
+      <div class="project-img" style="aspect-ratio: 4/3;">
+        <img src="heart-check/why%3F.png" alt="Heart Check Chain — app mockup screen to unlock">
+      </div>
+      <div class="project-img" style="aspect-ratio: 4/3;">
+        <img src="heart-check/nation.png" alt="Heart Check Chain — What's Your Why testimonial poster">
+      </div>
+      <div class="project-img" style="aspect-ratio: 4/3;">
+        <img src="heart-check/Screenshot 2026-03-14 at 16.57.06.png" alt="Heart Check Chain — What's Your Why testimonial poster">
+      </div>
+      <div class="project-img" style="aspect-ratio: 4/3;">
+        <img src="heart-check/Screenshot 2026-03-14 at 16.58.17.png" alt="Heart Check Chain — What's Your Why testimonial poster">
+      </div>
+      <div class="project-img" style="aspect-ratio: 4/3;">
+        <img src="heart-check/Screenshot 2026-03-15 at 20.25.48.png" alt="Heart Check Chain — What's Your Why testimonial poster">
+      </div>
+    </div>
+
+    <div style="margin: 48px 0;">
+  <style>
+    .hcc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 600px; margin: 0 auto 32px; }
+    .hcc-track { overflow: hidden; border-radius: 999px; aspect-ratio: 0.65/1; position: relative; background: #f0e8f5; }
+    .hcc-strip { display: flex; flex-direction: column; transition: transform 0.8s cubic-bezier(0.4,0,0.2,1); will-change: transform; }
+    .hcc-face { flex-shrink: 0; width: 100%; aspect-ratio: 0.65/1; overflow: hidden; }
+    .hcc-face img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .hcc-label { text-align: center; font-family: var(--mono); font-size: 10px; color: #444; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 8px; }
+    .hcc-tagline { text-align: center; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--white); margin-bottom: 8px; }
+    .hcc-sub { text-align: center; font-family: var(--mono); font-size: 11px; color: #555; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 32px; }
+  </style>
+
+  <p class="hcc-tagline">Don't break the chain.</p>
+  <p class="hcc-sub">Screen · Share · Secure</p>
+
+  <div class="hcc-grid">
+    <div>
+      <div class="hcc-track">
+        <div class="hcc-strip" id="hcc0">
+          <div class="hcc-face"><img src="heart-check/Main_Deliverables_4_of_8_.jpg" style="object-position: 20% top;"></div>
+          <div class="hcc-face"><img src="heart-check/Main_Deliverables_8_of_8.jpg" style="object-position: 15% 20%;"></div>
+          <div class="hcc-face"><img src="heart-check/Main_Deliverables_4_of_8_.jpg" style="object-position: 80% top;"></div>
+        </div>
+      </div>
+      <div class="hcc-label">Screen</div>
+    </div>
+    <div>
+      <div class="hcc-track">
+        <div class="hcc-strip" id="hcc1">
+          <div class="hcc-face"><img src="heart-check/Main_Deliverables_8_of_8.jpg" style="object-position: 50% 10%;"></div>
+          <div class="hcc-face"><img src="heart-check/Main_Deliverables_4_of_8_.jpg" style="object-position: 50% top;"></div>
+          <div class="hcc-face"><img src="heart-check/Main_Deliverables_8_of_8.jpg" style="object-position: 80% 20%;"></div>
+        </div>
+      </div>
+      <div class="hcc-label">Share</div>
+    </div>
+    <div>
+      <div class="hcc-track">
+        <div class="hcc-strip" id="hcc2">
+          <div class="hcc-face"><img src="heart-check/Main_Deliverables_4_of_8_.jpg" style="object-position: 70% top;"></div>
+          <div class="hcc-face"><img src="heart-check/Main_Deliverables_8_of_8.jpg" style="object-position: 30% 15%;"></div>
+          <div class="hcc-face"><img src="heart-check/Main_Deliverables_4_of_8_.jpg" style="object-position: 10% top;"></div>
+        </div>
+      </div>
+      <div class="hcc-label">Secure</div>
+    </div>
+    <div>
+      <div class="hcc-track">
+        <div class="hcc-strip" id="hcc3">
+          <div class="hcc-face"><img src="heart-check/Main_Deliverables_8_of_8.jpg" style="object-position: 60% 25%;"></div>
+          <div class="hcc-face"><img src="heart-check/Main_Deliverables_4_of_8_.jpg" style="object-position: 30% top;"></div>
+          <div class="hcc-face"><img src="heart-check/Main_Deliverables_8_of_8.jpg" style="object-position: 10% 10%;"></div>
+        </div>
+      </div>
+      <div class="hcc-label">Screen</div>
+    </div>
+    <div>
+      <div class="hcc-track">
+        <div class="hcc-strip" id="hcc4">
+          <div class="hcc-face"><img src="heart-check/Main_Deliverables_4_of_8_.jpg" style="object-position: 60% top;"></div>
+          <div class="hcc-face"><img src="heart-check/Main_Deliverables_8_of_8.jpg" style="object-position: 70% 20%;"></div>
+          <div class="hcc-face"><img src="heart-check/Main_Deliverables_4_of_8_.jpg" style="object-position: 90% top;"></div>
+        </div>
+      </div>
+      <div class="hcc-label">Share</div>
+    </div>
+    <div>
+      <div class="hcc-track">
+        <div class="hcc-strip" id="hcc5">
+          <div class="hcc-face"><img src="heart-check/Main_Deliverables_8_of_8.jpg" style="object-position: 40% 30%;"></div>
+          <div class="hcc-face"><img src="heart-check/Main_Deliverables_4_of_8_.jpg" style="object-position: 50% top;"></div>
+          <div class="hcc-face"><img src="heart-check/Main_Deliverables_8_of_8.jpg" style="object-position: 90% 10%;"></div>
+        </div>
+      </div>
+      <div class="hcc-label">Secure</div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const ids = ['hcc0','hcc1','hcc2','hcc3','hcc4','hcc5'];
+      const counts = new Array(6).fill(0);
+      function slideNext(i) {
+        const strip = document.getElementById(ids[i]);
+        if (!strip) return;
+        counts[i] = (counts[i] + 1) % 3;
+        const h = strip.parentElement.offsetHeight;
+        strip.style.transform = 'translateY(-' + (counts[i] * h) + 'px)';
+      }
+      function wave() {
+        [0,200,400,100,300,500].forEach((delay, i) => setTimeout(() => slideNext(i), delay));
+      }
+      setTimeout(wave, 800);
+      setInterval(wave, 3000);
+    })();
+  </script>
+</div>
+
+    <div class="project-body">
+      <p><strong>Heart Check Chain</strong> is a public health campaign addressing LP(a) — a genetic risk factor for heart disease that affects approximately 20% of the population, largely undiagnosed. The campaign reframes screening not as individual medical responsibility but as a family act: a chain of care.</p>
+      <p>The visual identity draws on the logic of viral social sharing — chain letters, referral mechanics, "Share Your Why" — applying it to cardiovascular health. <strong>Your DNA is a chain. Don't let a hidden link be the weak one.</strong></p>
+      <p>The app design uses a "Screen to Unlock" gesture as its core interaction metaphor, bridging the smartphone habit of unlocking a device with the act of unlocking health information. The OOH campaign features real people sharing their personal motivations for getting screened.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ MOTION ══════════════ -->
+<div id="page-motion" class="page">
+  <div class="project-page">
+    <button class="back-btn" onclick="showPage('home')">← Back to Work</button>
+    <div class="project-header">
+      <p class="project-category">Moving Image &amp; Animation · 2024–26</p>
+      <h1 class="project-h1">Motion</h1>
+      <p class="project-intro">Moving image &amp; animation work — 2024–26</p>
+    </div>
+    <div class="motion-grid">
+      <div class="motion-cell">
+        <video autoplay muted loop playsinline>
+          <source src="motion/0001-0250%20(1)%20(1).mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="motion-cell">
+        <video autoplay muted loop playsinline>
+          <source src="motion/Comp%201_1.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="motion-cell">
+        <video autoplay muted loop playsinline>
+          <source src="motion/Comp%201new%20flip-.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="motion-cell">
+        <video autoplay muted loop playsinline>
+          <source src="motion/final.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="motion-cell">
+        <video autoplay muted loop playsinline>
+          <source src="motion/flowers.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="motion-cell">
+        <video autoplay muted loop playsinline>
+          <source src="motion/intro.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="motion-cell">
+        <video autoplay muted loop playsinline>
+          <source src="motion/lava.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="motion-cell">
+        <video autoplay muted loop playsinline>
+          <source src="motion/no%20stopping%20sign0001-0250.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="motion-cell">
+        <video autoplay muted loop playsinline>
+          <source src="motion/passionate%20things.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="motion-cell">
+        <video autoplay muted loop playsinline>
+          <source src="motion/trains.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ ABOUT ══════════════ -->
+<div id="page-about" class="page">
+  <div class="about-page">
+    <div class="about-grid">
+      <div class="about-text">
+        <h1>Hi, I'm<br><em>Tatiana.</em></h1>
+        <p>I'm a graphic designer who graduated from the University of Huddersfield in 2026, where I was awarded the <strong>External Examiner Prize</strong> for my final year body of work.</p>
+        <p>My practice sits at the intersection of <strong>speculative design, critical theory, and visual culture</strong>. I'm drawn to work that has a point of view — that uses the tools of consumer culture to critique consumer culture, that finds beauty in discomfort, and that takes the designer's ethical responsibility seriously.</p>
+        <p>From anaglyph surveillance systems to Alzheimer's zines to dystopian cereal packaging, my work asks what design is for — and who it serves.</p>
+        <p>I'm currently available for hire and open to opportunities in branding, campaign design, editorial, and speculative design.</p>
+        <div class="about-tags">
+          <span class="tag">Speculative Design</span>
+          <span class="tag">Critical Practice</span>
+          <span class="tag">Brand Identity</span>
+          <span class="tag">Editorial</span>
+          <span class="tag">Campaign</span>
+          <span class="tag">Print</span>
+          <span class="tag">Typography</span>
+          <span class="tag">Social Design</span>
+        </div>
+      </div>
+      <div class="about-right">
+        <div class="about-award">
+          <div class="award-title">🏆 External Examiner Prize</div>
+          <div class="award-desc">University of Huddersfield Graduate Showcase 2026</div>
+        </div>
+        <div class="about-contact">
+          <div class="contact-title">Get in touch</div>
+          <a href="mailto:tatianascottjones@yahoo.com" class="contact-link">tatianascottjones@yahoo.com</a>
+          <a href="https://instagram.com/t4ttys" target="_blank" class="contact-link">@t4ttys on Instagram</a>
+          <a href="#" class="contact-link">Download CV</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showPage(id, push = true) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + id);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (push) history.pushState({ page: id }, '', '#' + id);
+  }
+}
+
+window.addEventListener('popstate', e => {
+  showPage(e.state ? e.state.page : 'home', false);
+});
+
+// Stamp the initial page so back from the first project returns home correctly
+history.replaceState({ page: 'home' }, '', location.href);
+
+// Lightbox
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+
+function openLightbox(src, alt) {
+  lightboxImg.src = src;
+  lightboxImg.alt = alt;
+  lightbox.classList.add('open');
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+}
+
+document.querySelectorAll('.project-img img').forEach(img => {
+  img.addEventListener('click', () => openLightbox(img.src, img.alt));
+});
+
+lightbox.addEventListener('click', e => {
+  if (e.target !== lightboxImg) closeLightbox();
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+});
+</script>
+</body>
+</html>
